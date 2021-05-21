@@ -2,6 +2,7 @@ package application;
 
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -15,14 +16,15 @@ import model.Categories;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -49,6 +51,16 @@ public class CategoryController {
 	private TableColumn<Categories, String> colName;
 	@FXML
 	private Button btnAjouter;
+	@FXML
+	private TextField txtNomCat;
+	@FXML
+	private TableView<Categories> tabCatChercher;
+	@FXML
+	private TableColumn<Categories, String> colidCat;
+	@FXML
+	private TableColumn<Categories, String> colNomCat;
+	
+	
 	
 	
 	public void Ajouter(ActionEvent e) {
@@ -294,64 +306,27 @@ public class CategoryController {
 	}
 	
 	//chercher
-	public void chercher(ActionEvent a) {
-		chercherCat();
+	public void chercher(ActionEvent a) throws IOException {
+		
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("ChercherCatView.fxml"));
+		Scene scene = new Scene(root);
+		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("Chercher Catégories");
+		primaryStage.setResizable(false);
+		primaryStage.initModality(Modality.APPLICATION_MODAL);
+		primaryStage.show();
+	
 	}
 	
-	public void chercherCat() {
-		Stage window = new Stage();
-
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Chercher");
-        window.setMinWidth(250);
-
-        VBox v = new VBox(addTitle("Chercher catégorie"));
-        
-        GridPane g = new GridPane();
-        g.setPadding(new Insets(10, 10, 10, 10));
-        g.setHgap(10);
-        g.setVgap(8);
-        // Name label
-        Label l0 = new Label("Nom Catégorie");
-        GridPane.setConstraints(l0, 0, 0);
-        // Name input
-        TextField nameAuto = new TextField();
-        GridPane.setConstraints(nameAuto, 1, 0);
-     // add to gridpane
-        g.getChildren().addAll(l0, nameAuto);
-     // making the table
-        TableColumn<Categories, String> idColumn = new TableColumn<>("ID");
-        idColumn.setPrefWidth(75);
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("idCat"));
-        
-        TableColumn<Categories, String> nameColumn = new TableColumn<>("Nom");
-        nameColumn.setPrefWidth(120);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("catName"));
-        
-        TableView<Categories> tab = new TableView<>();
-        tab.setItems(null);
-        tab.getColumns().addAll(idColumn, nameColumn);
-     // the buttons
-        Button retour = new Button("Retour");
-        retour.setOnAction(e -> window.close());
-        Button chercher = new Button("Chercher");
-        chercher.setOnAction(e -> {
-        	
-        });
-        
-        HBox b = new HBox(retour, chercher);
-        b.setPadding(new Insets(10, 10, 10, 10));
-        b.setSpacing(20);
-        b.setAlignment(Pos.CENTER_RIGHT);
-       
-        v.setAlignment(Pos.CENTER);
-        v.setPadding(new Insets(20, 10, 10, 10));
-        v.setSpacing(15);
-        v.getChildren().addAll(g, tab, b);
-        Scene s = new Scene(v);
-        window.setScene(s);
-        window.show();
-
+	
+	public void NameSearchAction(KeyEvent k) {
+		String name = txtNomCat.getText();
+		ObservableList<Categories> list = DBConnection.CatList(name);
+		colidCat.setCellValueFactory(new PropertyValueFactory<Categories,String>("idCat"));
+		colNomCat.setCellValueFactory(new PropertyValueFactory<Categories,String>("catName"));
+		tabCatChercher.setItems(list);
 	}
 	
 	

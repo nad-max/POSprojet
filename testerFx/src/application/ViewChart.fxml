@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ViewChartController">
+   <children>
+      <AnchorPane fx:id="ch_dailySale" layoutX="1.0" layoutY="6.0" prefHeight="322.0" prefWidth="377.0" style="-fx-background-color: #e2edff;" />
+      <Button layoutX="24.0" layoutY="547.0" mnemonicParsing="false" onAction="#dailyChart" text="Show charts" />
+      <AnchorPane fx:id="ch_category" layoutX="517.0" layoutY="7.0" prefHeight="322.0" prefWidth="350.0" style="-fx-background-color: #e2edff;" />
+      <AnchorPane fx:id="caissierChart" layoutX="724.0" layoutY="333.0" prefHeight="322.0" prefWidth="358.0" style="-fx-background-color: #e2edff;" />
+   </children>
+</AnchorPane>

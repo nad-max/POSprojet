@@ -7,44 +7,47 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxWidth="-Infinity" prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: #f0e68c;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ClientController">
+<AnchorPane maxWidth="-Infinity" prefHeight="600.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ClientController">
    <children>
-      <Pane layoutY="-14.0" prefHeight="25.0" prefWidth="964.0" style="-fx-background-color: #b8860b;" />
-      <TableView fx:id="clientTable" layoutX="39.0" layoutY="68.0" prefHeight="426.0" prefWidth="870.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
+      <TableView fx:id="clientTable" layoutX="40.0" layoutY="68.0" prefHeight="452.0" prefWidth="1214.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="26.0">
          <columns>
-            <TableColumn fx:id="colid" prefWidth="192.0" text="Id" />
-            <TableColumn fx:id="colNom" prefWidth="184.0" text="Nom" />
-            <TableColumn fx:id="colPrenom" prefWidth="154.0" text="Prenom" />
-            <TableColumn fx:id="colTel" prefWidth="164.0" text="Telephone" />
-            <TableColumn fx:id="colDate" prefWidth="175.0" text="Date Inscription" />
+            <TableColumn fx:id="colid" prefWidth="282.0" text="Id" />
+            <TableColumn fx:id="colNom" prefWidth="250.0" text="Nom" />
+            <TableColumn fx:id="colPrenom" prefWidth="236.0" text="Prenom" />
+            <TableColumn fx:id="colTel" prefWidth="249.0" text="Telephone" />
+            <TableColumn fx:id="colDate" prefWidth="196.0" text="Date Inscription" />
          </columns>
       </TableView>
-      <Label layoutX="416.0" layoutY="21.0" text="clients" textFill="DARKGOLDENROD">
+      <Label layoutX="589.0" layoutY="22.0" text="clients" textFill="#322403">
          <font>
             <Font name="Copperplate Gothic Bold" size="34.0" />
          </font>
       </Label>
-      <HBox layoutX="108.0" layoutY="502.0" prefHeight="62.0" prefWidth="768.0" spacing="50.0">
+      <HBox layoutX="256.0" layoutY="530.0" prefHeight="62.0" prefWidth="768.0" spacing="50.0">
          <children>
-            <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#Ajouter" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Ajouter ">
+            <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#Ajouter" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #21000e; -fx-text-fill: #fff;" text="Ajouter ">
                <font>
                   <Font name="Tahoma Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnModifier" mnemonicParsing="false" onAction="#modifier" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Modifier">
+            <Button fx:id="btnModifier" mnemonicParsing="false" onAction="#modifier" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #21000e; -fx-text-fill: #fff;" text="Modifier">
                <font>
                   <Font name="Tahoma Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnSupp" mnemonicParsing="false" onAction="#delete" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Supprimer">
+            <Button fx:id="btnSupp" mnemonicParsing="false" onAction="#delete" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #21000e; -fx-text-fill: #fff;" text="Supprimer">
                <font>
                   <Font name="Tahoma Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="210.0" layoutY="10.0" mnemonicParsing="false" onAction="#afficherClient" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Consulter">
+            <Button layoutX="210.0" layoutY="10.0" mnemonicParsing="false" onAction="#afficherClient" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #21000e; -fx-text-fill: #fff;" text="Consulter">
+               <font>
+                  <Font name="Tahoma Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="560.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #21000e; -fx-text-fill: #fff;" text="Chercher">
                <font>
                   <Font name="Tahoma Bold" size="14.0" />
                </font>

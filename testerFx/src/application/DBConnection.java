@@ -20,14 +20,9 @@ import javafx.collections.ObservableList;
 
 public class DBConnection {
 
-	 /*private static final String USERNAME = "root";
-	    private static final String PASSWORD = "";
-	    private static final String HOST = "127.0.0.1";
-	    private static final int PORT = 3306;
-	    private static final String DB_NAME = "pfe";*/
+	 
 	    public static Connection con;
-	    //private PreparedStatement ps;
-	    
+	   
 	    
 	    public static Connection getConnexion(){  
 	    	try {   
@@ -67,7 +62,7 @@ public class DBConnection {
 	 		        return listCategorie;
 	 			}	
 	 	//liste promo
-	 	public static ObservableList<Promotion> getPromoList() {
+	 	/*public static ObservableList<Promotion> getPromoList() {
 	 		
 		 	ObservableList<Promotion> listPromotion =FXCollections.observableArrayList();
 		 	Connection conn= DBConnection.getConnexion();
@@ -86,7 +81,7 @@ public class DBConnection {
 		 		            e.printStackTrace();
 		 		        }
 		 		        return listPromotion;
-		 			}
+		 			}*/
 	 	
 	 	// récuperer la liste des fournisseurs
 	 	public static ObservableList<Fournisseur> getFournisseurList() {
@@ -166,7 +161,7 @@ public class DBConnection {
 		 		ps=conn.prepareStatement(req);
  		        rs=ps.executeQuery(req);
  		       while (rs.next()) {
- 		    	  Product p = new Product(rs.getString(1),rs.getString(2), rs.getDouble(3), rs.getDouble(4),rs.getString(5),rs.getString(6),rs.getInt(7));
+ 		    	  Product p = new Product(rs.getString(1),rs.getString(2), rs.getDouble(3), rs.getDouble(4),rs.getString(5),rs.getString(6),rs.getInt(7),rs.getInt(8));
  		    	listProduct.add(p);
  		       }
 		 		
@@ -174,6 +169,76 @@ public class DBConnection {
 		 		e.printStackTrace();
 		 	}
 	 		return listProduct;
+	 	}
+	 	// chercher produit par nom 
+	 	public static ObservableList<Product> ProductList(String nom){
+	 		ObservableList<Product> listProduct =FXCollections.observableArrayList();
+		 	Connection conn= DBConnection.getConnexion();
+		 	String req = "select ProductID, ProductName, SellingPrice, Qte from product where ProductName LIKE '" +nom+ "%'";
+		 	PreparedStatement ps;
+		 	ResultSet rs;
+		 	try {
+		 		ps=conn.prepareStatement(req);
+ 		        rs=ps.executeQuery(req);
+ 		       while (rs.next()) {
+ 		    	  Product p = new Product();
+ 		    	p.setProductID(rs.getString(1));
+ 		    	p.setProductName(rs.getString(2));
+ 		    	//p.setProductCat(rs.getString(3));
+ 		    	p.setSellingPrice(rs.getDouble(3));
+ 		    	p.setQte(rs.getInt(4));
+ 		    	  listProduct.add(p);
+ 		       }
+		 		
+		 	}catch(Exception e) {
+		 		e.printStackTrace();
+		 	}
+	 		return listProduct;
+	 	}
+	 	//chercher par nom
+	 	public static ObservableList<Client> ClientList(String nom){
+	 		ObservableList<Client> listClient =FXCollections.observableArrayList();
+		 	Connection conn= DBConnection.getConnexion();
+		 	String req = "select * from client where FirstName LIKE '" +nom+ "%'";
+		 	PreparedStatement ps;
+		 	ResultSet rs;
+		 	try {
+		 		ps=conn.prepareStatement(req);
+ 		        rs=ps.executeQuery(req);
+ 		       while (rs.next()) {
+ 		    	  //Client c = new Client();
+ 		    	  Client cl = new Client(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getTimestamp(5));
+ 		    	 listClient.add(cl);
+ 		       }
+		 		
+		 	}catch(Exception e) {
+		 		e.printStackTrace();
+		 	}
+	 		return listClient;
+	 	}
+	 	//chercher cat par nom
+	 	public static ObservableList<Categories> CatList(String nom){
+	 		ObservableList<Categories> listCat =FXCollections.observableArrayList();
+		 	Connection conn= DBConnection.getConnexion();
+		 	String req = "select * from category where catName LIKE '" +nom+ "%'";
+		 	PreparedStatement ps;
+		 	ResultSet rs;
+		 	try {
+		 		ps=conn.prepareStatement(req);
+ 		        rs=ps.executeQuery(req);
+ 		       while (rs.next()) {
+ 		    	  Categories p = new Categories();
+ 		    	  p.setIdCat(rs.getString(1));
+ 		    	  p.setCatName(rs.getString(2));
+ 		    	
+ 		    	
+ 		    	 listCat.add(p);
+ 		       }
+		 		
+		 	}catch(Exception e) {
+		 		e.printStackTrace();
+		 	}
+	 		return listCat;
 	 	}
 	 	
 	 	
@@ -264,7 +329,7 @@ public class DBConnection {
 	public static void  addProduct(Product produit) {
 	try {
 	Connection conn= DBConnection.getConnexion();
-	PreparedStatement ps = conn.prepareStatement("insert into product values (?,?,?,?,?,?,?)");
+	PreparedStatement ps = conn.prepareStatement("insert into product values (?,?,?,?,?,?,?,?,?)");
     ps.setString(1, produit.getProductID());
     ps.setString(2, produit.getProductName());
     ps.setDouble(3, produit.getBuyingPrice());
@@ -272,6 +337,8 @@ public class DBConnection {
     ps.setString(5,produit.getProductCat());
     ps.setString(6, produit.getFournisseur());
     ps.setInt(7, produit.getQte());
+    ps.setInt(8, produit.getRemise());
+    ps.setInt(9, produit.getCount());
     ps.executeUpdate();
 	}catch(SQLException e) {
 		e.printStackTrace();
@@ -466,16 +533,16 @@ public class DBConnection {
 	        try {
 	        	Connection conn= DBConnection.getConnexion();
 	            
-	        	PreparedStatement ps = conn.prepareStatement("select * from product where ProductName = ? and SellingPrice between ? and ?");
-	        	ps.setString(1, nom);
-	        	ps.setDouble(2, mn);
-	        	ps.setDouble(3, Mx);
+	        	PreparedStatement ps = conn.prepareStatement("select * from product where ProductName LIKE '" +nom+ "%' and SellingPrice between ? and ?");
+	        	
+	        	ps.setDouble(1, mn);
+	        	ps.setDouble(2, Mx);
 	        	ResultSet rs;
 				 rs=ps.executeQuery();
 	           
 	            while (rs.next()) {
 	                Product pr = new Product(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4),
-	                		rs.getString(5), rs.getString(6), rs.getInt(7));
+	                		rs.getString(5), rs.getString(6), rs.getInt(7), rs.getInt(8));
 	                list_product.add(pr);
 	            }
 	        } catch (Exception e) {
@@ -498,7 +565,7 @@ public class DBConnection {
 	            
 	            while (rs.next()) {
 	                Product pr = new Product(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4),
-	                		rs.getString(5), rs.getString(6), rs.getInt(7));
+	                		rs.getString(5), rs.getString(6), rs.getInt(7),rs.getInt(8));
 	                list_product.add(pr);
 	            }
 	        } catch (Exception e) {

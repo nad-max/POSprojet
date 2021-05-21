@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="588.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ConsulterClientsController">
+   <children>
+      <Label layoutX="231.0" layoutY="23.0" text="clients" textFill="#322301">
+         <font>
+            <Font name="Copperplate Gothic Bold" size="34.0" />
+         </font>
+      </Label>
+      <TableView fx:id="clientTable" layoutX="35.0" layoutY="131.0" prefHeight="343.0" prefWidth="502.0">
+         <columns>
+            <TableColumn fx:id="colid" prefWidth="87.0" text="ID" />
+            <TableColumn fx:id="colNom" prefWidth="103.0" text="Nom" />
+            <TableColumn fx:id="colPrenom" prefWidth="97.0" text="Prenom" />
+            <TableColumn fx:id="colTel" prefWidth="85.0" text="Telephone" />
+            <TableColumn fx:id="colDate" prefWidth="129.0" text="Date Inscription" />
+         </columns></TableView>
+      <TextField fx:id="txtNomClient" layoutX="35.0" layoutY="83.0" onKeyReleased="#afficherClient" prefHeight="25.0" prefWidth="164.0" promptText="Nom" />
+   </children>
+</AnchorPane>

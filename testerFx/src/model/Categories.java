@@ -5,6 +5,17 @@ private String idCat;
 private String catName;
 
 
+
+
+public Categories() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+
+
+
+
+
 public Categories(String idCat, String catName) {
 	super();
 	this.idCat = idCat;

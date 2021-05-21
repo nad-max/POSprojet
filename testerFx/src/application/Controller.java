@@ -2,6 +2,8 @@ package application;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -20,6 +24,7 @@ import javafx.stage.Stage;
 import model.Administrateur;
 import model.Caissier;
 import application.DBConnection;
+
 
 public class Controller {
 	
@@ -35,6 +40,8 @@ public class Controller {
 	private RadioButton btnCaissier;
 	@FXML 
 	private Label label;
+	@FXML 
+	private Button btnLogin;
 	
 	
 	
@@ -74,9 +81,13 @@ public class Controller {
     			 DBConnection.getConnexion();
     			 
          	    //aller à l'interface admin 
+    			 try {
+ 					new MainAdmin().start((Stage)btnLogin.getScene().getWindow());
+ 				} catch (Exception ex) {
+ 					// TODO Auto-generated catch block
+ 					ex.printStackTrace();
+ 				}
 
-     			openModelWindow("Admin.fxml","Admin view");
-     			//window.close();
      			
     		 }
     		 else {
@@ -106,8 +117,13 @@ public class Controller {
     			 DBConnection.getConnexion();
          	    //aller à l'interface caissier 
     			 Caissier cai = user.getCaissier(txtLogin.getText(), txtPw.getText());
-     			openModelWindow("CaissierView.fxml","Caissier view");
-    			 
+    			 try {
+  					new MainCashier().start((Stage)btnLogin.getScene().getWindow());
+  				} catch (Exception ex) {
+  					// TODO Auto-generated catch block
+  					ex.printStackTrace();
+  				}
+     			 
     		 }
     		 else {
     			 Alert alert = new Alert(AlertType.WARNING);
@@ -140,15 +156,51 @@ public class Controller {
     	 
 
 }
-	
-	
+	//for screen transaction from login to admin panel
+			public class MainAdmin extends Application{
+
+			    @Override
+			    public void start(Stage primaryStage) throws Exception {
+			        Parent root = FXMLLoader.load(getClass().getResource("Admin.fxml"));
+
+			        
+			        Scene scene = new Scene(root,1320,696);
+					primaryStage.setScene(scene);
+					primaryStage.setTitle("Admin View");
+					//primaryStage.sizeToScene();
+					primaryStage.setResizable(false);
+					//primaryStage.getIcons().add(new Image("graphic/poslogorect.png"));
+					primaryStage.setMaximized(false);
+					primaryStage.show();
+			    }
+			}
+			//for screen transaction from login to cashier panel
+			public class MainCashier extends Application{
+
+			    @Override
+			    public void start(Stage primaryStage) throws Exception {
+			        Parent root = FXMLLoader.load(getClass().getResource("CaissierView.fxml"));
+
+		
+			    
+			        
+			        Scene scene = new Scene(root, 1320, 696);
+					primaryStage.setScene(scene);
+					primaryStage.setTitle("Caissier view");
+					//primaryStage.sizeToScene();
+					primaryStage.setResizable(false);
+					
+					primaryStage.setMaximized(false);
+					primaryStage.show();
+			    }
+			}
 	public void openModelWindow(String resource, String title) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource(resource));
 			Scene fxmlFile = new Scene(root);
 			Stage window = new Stage();
 			window.setScene(fxmlFile);
-			window.initModality(Modality.APPLICATION_MODAL);
+			window.initModality(Modality.NONE);
 			//window.setAlwaysOnTop(true);
 			//window.setIconified(false);
 			window.setTitle(title);

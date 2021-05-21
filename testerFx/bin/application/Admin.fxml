@@ -2,72 +2,55 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="840.0" style="-fx-background-color: #f0e68c;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminContoller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1311.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminContoller">
    <children>
-      <VBox alignment="CENTER" layoutX="552.0" layoutY="42.0" prefHeight="500.0" prefWidth="270.0" spacing="20.0" style="-fx-background-color: #1c2b35;" AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="55.0">
+      <AnchorPane fx:id="common_pane" layoutX="-1.0" layoutY="71.0" prefHeight="629.0" prefWidth="1311.0" />
+      <AnchorPane layoutY="-1.0" prefHeight="72.0" prefWidth="1311.0" style="-fx-background-color: #21000e;">
          <children>
-            <Button fx:id="btnProduit" mnemonicParsing="false" onAction="#AllProducts" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Produits">
+            <Button fx:id="btnCatégorie" layoutX="436.0" layoutY="13.0" mnemonicParsing="false" onAction="#AllCategories" prefHeight="47.0" prefWidth="133.0" style="-fx-background-color: #9b7f18; -fx-text-fill: #fff;" text="Catégories">
                <font>
                   <Font name="Tahoma" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btnCatégorie" mnemonicParsing="false" onAction="#AllCategories" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Catégories">
+            <Button fx:id="btnProduit" layoutX="285.0" layoutY="13.0" mnemonicParsing="false" onAction="#AllProducts" prefHeight="47.0" prefWidth="133.0" style="-fx-background-color: #9b7f18; -fx-text-fill: #fff;" text="Articles">
                <font>
                   <Font name="Tahoma" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btnCaissier" mnemonicParsing="false" onAction="#AllCaissiers" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Caissiers">
+            <Button fx:id="btnCaissier" layoutX="589.0" layoutY="13.0" mnemonicParsing="false" onAction="#AllCaissiers" prefHeight="47.0" prefWidth="133.0" style="-fx-background-color: #9b7f18; -fx-text-fill: #fff;" text="Caissiers">
                <font>
                   <Font name="Tahoma" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btnFournisseur" mnemonicParsing="false" onAction="#AllFournisseurs" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Fournisseurs">
+            <Button fx:id="btnFournisseur" layoutX="737.0" layoutY="13.0" mnemonicParsing="false" onAction="#AllFournisseurs" prefHeight="47.0" prefWidth="133.0" style="-fx-background-color: #9b7f18; -fx-text-fill: #fff;" text="Fournisseurs">
                <font>
                   <Font name="Tahoma" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btnClient" mnemonicParsing="false" onAction="#AllClients" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Clients">
+            <Button fx:id="btnJournal" layoutX="885.0" layoutY="13.0" mnemonicParsing="false" onAction="#Rapport" prefHeight="47.0" prefWidth="133.0" style="-fx-background-color: #9b7f18; -fx-text-fill: #fff;" text="Rapports">
                <font>
                   <Font name="Tahoma" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btnJournal" mnemonicParsing="false" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Journal">
+            <Button fx:id="btnStat" layoutX="1029.0" layoutY="13.0" mnemonicParsing="false" onAction="#Statis" prefHeight="47.0" prefWidth="133.0" style="-fx-background-color: #9b7f18; -fx-text-fill: #fff;" text="Statistiques">
                <font>
                   <Font name="Tahoma" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btnStat" mnemonicParsing="false" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Statistiques">
+            <Button fx:id="btnExit" layoutX="1176.0" layoutY="13.0" mnemonicParsing="false" onAction="#Exit" prefHeight="47.0" prefWidth="114.0" style="-fx-background-color: #b8860b; -fx-text-fill: #fff;" text="Quitter">
                <font>
                   <Font name="Tahoma" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btnPromo" mnemonicParsing="false" onAction="#AllPromo" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Promotion">
+            <Label layoutX="13.0" layoutY="11.0" prefHeight="47.0" prefWidth="246.0" text="Ingenious labs POS Système" textFill="WHITE">
                <font>
-                  <Font name="Tahoma" size="18.0" />
+                  <Font name="Arial Italic" size="18.0" />
                </font>
-            </Button>
-            <Button fx:id="btnquitter" layoutX="10.0" layoutY="255.0" mnemonicParsing="false" onAction="#Exit" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Quitter">
-               <font>
-                  <Font name="Tahoma" size="18.0" />
-               </font>
-            </Button>
+            </Label>
          </children>
-      </VBox>
-      <Label fx:id="lab1" layoutX="24.0" layoutY="330.0" prefHeight="51.0" prefWidth="468.0" style="-fx-text-fill: #b8860b;" text="Ingenious lab POS System">
-         <font>
-            <Font name="Tahoma" size="40.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="181.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../resources/imageonline-co-transparentimage.png" />
-         </image>
-      </ImageView>
+      </AnchorPane>
    </children>
 </AnchorPane>

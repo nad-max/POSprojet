@@ -48,6 +48,8 @@ public class ProductController {
 	private TableColumn<Product, String> colFournisseur;
 	@FXML
 	private TableColumn<Product, Integer> colQte;
+	@FXML
+	private TableColumn<Product, Integer> colRemise;
 	
 	
 	// permet de la remplir depuis la base
@@ -60,6 +62,7 @@ public class ProductController {
 	colCat.setCellValueFactory(new PropertyValueFactory<Product,String>("ProductCat"));
 	colFournisseur.setCellValueFactory(new PropertyValueFactory<Product,String>("Fournisseur"));
 	colQte.setCellValueFactory(new PropertyValueFactory<Product,Integer>("Qte"));
+	colRemise.setCellValueFactory(new PropertyValueFactory<Product,Integer>("remise"));
 	productTab.setItems(list);
 	}
 	
@@ -76,7 +79,7 @@ public class ProductController {
         window.setTitle("Ajouter");
         window.setMinWidth(250);
         VBox v = new VBox();
-        v.getChildren().add(addTitle("Nouveau Produit"));
+        v.getChildren().add(addTitle("Nouvel Article"));
 
         GridPane g = new GridPane();
         g.setPadding(new Insets(10, 10, 10, 10));
@@ -118,17 +121,23 @@ public class ProductController {
         // Qte input
         TextField qte = new TextField();
         GridPane.setConstraints(qte, 1, 5);
+        // remise input
+        Label l7 = new Label("Taux de Remise (%)");
+        GridPane.setConstraints(l7, 0, 6);
+     // Qte input
+        TextField remise = new TextField();
+        GridPane.setConstraints(remise, 1, 6);
      // add to gridpane
-        g.getChildren().addAll(l1,name,l2,buyingPrice,l3,sellingPrice,l4,category,l5,fournisseur,l6,qte);
+        g.getChildren().addAll(l1,name,l2,buyingPrice,l3,sellingPrice,l4,category,l5,fournisseur,l6,qte,l7,remise);
    //// add buttons
         Button leftb = new Button("Annuler");
         leftb.setOnAction(e -> window.close());
         Button rightb = new Button("Confirmer");
         rightb.setOnAction(e -> {
-         if(qte.getText().matches("[0-9]")) {
+         
          Categories cat = DBConnection.getCategoryById(IDfromData(category.getValue()));
          Fournisseur f = DBConnection.getFournisseurById(IDfromData(fournisseur.getValue()));
-         Product prod = new Product(newID(), name.getText(),Double.parseDouble(buyingPrice.getText()) , Double.parseDouble(sellingPrice.getText()),cat.getIdCat(),f.getID(),Integer.parseInt(qte.getText()));
+         Product prod = new Product(newID(), name.getText(),Double.parseDouble(buyingPrice.getText()) , Double.parseDouble(sellingPrice.getText()),cat.getIdCat(),f.getID(),Integer.parseInt(qte.getText()),Integer.parseInt(remise.getText()));
          DBConnection.addProduct(prod);
          table.getItems().add(prod);
          window.close();
@@ -137,14 +146,7 @@ public class ProductController {
          alert.setTitle("Message");
          alert.setHeaderText("Succès !");
          alert.setContentText("Ajout  fait avec succès !");
-         alert.show();}
-         else {
-        	 Alert alert = new Alert(AlertType.ERROR);
-	            alert.setTitle("Message");
-	            alert.setHeaderText("Quantité");
-	            alert.setContentText("Veuillez saisir un nombre !");
-	            alert.show();
-         }
+         alert.show();
          
         });
         HBox b = new HBox(leftb, rightb);
@@ -175,7 +177,7 @@ public class ProductController {
         window.setTitle("Modifier");
         //window.setMinWidth(250);
         VBox v = new VBox();
-        v.getChildren().add(addTitle("Modifier Produit"));
+        v.getChildren().add(addTitle("Modifier Article"));
 
         GridPane g = new GridPane();
         g.setPadding(new Insets(10, 10, 10, 10));
@@ -204,7 +206,7 @@ public class ProductController {
         Label l3 = new Label("Prix de vente");
         GridPane.setConstraints(l3, 0,3);
         // selling price input
-        TextField sellingPrice = new TextField(String.valueOf(selectedProduct.getBuyingPrice()));
+        TextField sellingPrice = new TextField(String.valueOf(selectedProduct.getSellingPrice()));
         GridPane.setConstraints(sellingPrice, 1, 3);
         // category label
         Label l4 = new Label("Catégorie");
@@ -232,8 +234,14 @@ public class ProductController {
         // Qte input
         TextField qte = new TextField(String.valueOf(selectedProduct.getQte()));
         GridPane.setConstraints(qte, 1,6);
+     // remise label
+        Label l7 = new Label("Taux de Remise (%)");
+        GridPane.setConstraints(l7, 0, 7);
+     // remise input
+        TextField remise = new TextField(String.valueOf(selectedProduct.getRemise()));
+        GridPane.setConstraints(remise, 1,7);
         // add to gridpane
-        g.getChildren().addAll(l0,id,l1,name,l2,buyingPrice,l3,sellingPrice,l4,oldCat,category,l5,oldF,fournisseur,l6,qte);
+        g.getChildren().addAll(l0,id,l1,name,l2,buyingPrice,l3,sellingPrice,l4,oldCat,category,l5,oldF,fournisseur,l6,qte,l7,remise);
        //// add buttons
         Button leftb = new Button("Annuler");
         leftb.setOnAction(e -> window.close());
@@ -241,7 +249,7 @@ public class ProductController {
         rightb.setOnAction(e -> {
         	Categories cat = DBConnection.getCategoryById(IDfromData(category.getValue()));
         	Fournisseur f = DBConnection.getFournisseurById(IDfromData(fournisseur.getValue()));
-        	Product prod = new Product(id.getText(),name.getText(),Double.parseDouble(buyingPrice.getText()), Double.parseDouble(sellingPrice.getText()), cat.getIdCat(),f.getID(),Integer.parseInt(qte.getText()));
+        	Product prod = new Product(id.getText(),name.getText(),Double.parseDouble(buyingPrice.getText()), Double.parseDouble(sellingPrice.getText()), cat.getIdCat(),f.getID(),Integer.parseInt(qte.getText()),Integer.parseInt(remise.getText()));
             DBConnection.deleteProduct(selectedProduct);
             DBConnection.addProduct(prod);
             productTab.getItems().remove(selectedProduct);
@@ -329,7 +337,7 @@ public class ProductController {
         window.setTitle("Chercher");
         window.setMinWidth(250);
 
-        VBox v = new VBox(addTitle("Chercher des produits"));
+        VBox v = new VBox(addTitle("Chercher Articles"));
         
         GridPane g = new GridPane();
         g.setPadding(new Insets(10, 10, 10, 10));
@@ -389,9 +397,13 @@ public class ProductController {
         qteColumn.setPrefWidth(117);
         qteColumn.setCellValueFactory(new PropertyValueFactory<>("Qte"));
         
+        TableColumn<Product, Integer> remiseColumn = new TableColumn<>("Remise");
+        remiseColumn.setPrefWidth(117);
+        remiseColumn.setCellValueFactory(new PropertyValueFactory<>("remise"));
+        
         TableView<Product> tab = new TableView<>();
         tab.setItems(null);
-        tab.getColumns().addAll(idColumn, nameColumn, bpriceColumn, spriceColumn, catColumn, fourniColumn, qteColumn);
+        tab.getColumns().addAll(idColumn, nameColumn, bpriceColumn, spriceColumn, catColumn, fourniColumn, qteColumn,remiseColumn);
         // the buttons
         Button retour = new Button("Retour");
         retour.setOnAction(e -> window.close());
@@ -428,97 +440,14 @@ public class ProductController {
         window.setScene(s);
         window.show();
 	}
-	//remise
-	public void remise(ActionEvent a) {
-		remiseProduit(productTab.getSelectionModel().getSelectedItem(),productTab);
-		
-	}
-	
-	public void remiseProduit(Product SelectedProd, TableView<Product> table) {
-		Stage window = new Stage();
-
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Remise");
-        window.setMinWidth(250);
-
-        VBox discountlayout = new VBox(addTitle("Remise"));
-        GridPane g = new GridPane();
-        g.setPadding(new Insets(10, 10, 10, 10));
-        g.setHgap(10);
-        g.setVgap(8);
-        // id label
-        Label l0 = new Label("ID");
-        GridPane.setConstraints(l0, 0, 0);
-        // id input
-        TextField id = new TextField();
-        id.setText(SelectedProd.getProductID());
-        id.setDisable(true);
-        GridPane.setConstraints(id, 1, 0);
-       // sellinprice label
-        Label l1 = new Label("Prix de Vente");
-        GridPane.setConstraints(l1, 0, 1);
-        // sellinprice input
-        TextField price = new TextField();
-        price.setText(SelectedProd.getSellingPrice().toString());
-        price.setDisable(true);
-        GridPane.setConstraints(price, 1, 1);
-        // discount label
-        Label l2 = new Label("Taux de remise (%)");
-        GridPane.setConstraints(l2, 0, 2);
-        // discount input
-        ChoiceBox<Integer> remise = new ChoiceBox<>(DBConnection.promotionToString());
-        Button test = new Button("Test");
-        test.setMinWidth(60);
-        TextField result = new TextField(SelectedProd.getSellingPrice().toString());
-        result.setDisable(true);
-        HBox actions = new HBox(remise, test, result);
-        actions.setSpacing(8);
-        test.setOnAction(e -> {
-        	Promotion promo = DBConnection.getPromotionByPourcentage(remise.getValue());
-            Double preview = discount(Double.parseDouble(price.getText()),Double.parseDouble(remise.getValue().toString()));
-            result.setText(preview.toString());
-        });
-        GridPane.setConstraints(actions, 1, 2);
-       // add to gridpane
-        g.getChildren().addAll(l0, id, l1, price, l2, actions);
-        Button annuler = new Button("Annuler");
-        annuler.setOnAction(e -> window.close());
-        Button confirmer = new Button("Confirmer");
-        confirmer.setOnAction(e -> {
-            Double resultprice = Double.parseDouble(result.getText());
-            //Connector con = new Connector();
-            table.getItems().remove(SelectedProd);
-            DBConnection.makeDiscount(id.getText(), resultprice);
-            Product newprod = DBConnection.getProdByID(id.getText());
-            table.getItems().add(newprod);
-            window.close();
-        });
-        HBox b = new HBox(annuler, confirmer);
-        b.setPadding(new Insets(10, 10, 10, 10));
-        b.setSpacing(20);
-        b.setAlignment(Pos.CENTER_RIGHT);
-        /// making the layout
-        discountlayout.getChildren().addAll(g, b);
-        discountlayout.setAlignment(Pos.CENTER);
-        discountlayout.setPadding(new Insets(20, 10, 10, 10));
-        discountlayout.setSpacing(15);
-        Scene s = new Scene(discountlayout);
-        window.setScene(s);
-        window.show();
-		
-	}
 	
 	
-	public Double discount(Double d, Double r) {
-        Double res = d * (1 - (r / 100));
-        return res;
-    }
-
 	public Text addTitle(String title) {
         Text t = new Text(title);
         t.setFont(Font.font("Arial", 20));
         return t;
     }
+	
 
     private String newID() {
         String uuid = UUID.randomUUID().toString();

@@ -7,56 +7,50 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0" prefWidth="762.0" style="-fx-background-color: #f0e68c;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProductController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1311.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProductController">
    <children>
-      <Pane layoutX="-6.0" prefHeight="11.0" prefWidth="768.0" style="-fx-background-color: #b8860b;" />
-      <Label layoutX="259.0" layoutY="31.0" text="Produits" textFill="DARKGOLDENROD">
+      <Label layoutX="575.0" layoutY="32.0" text="Articles" textFill="#322403">
          <font>
             <Font name="Copperplate Gothic Bold" size="34.0" />
          </font>
       </Label>
-      <TableView fx:id="productTab" layoutX="45.0" layoutY="87.0" prefHeight="371.0" prefWidth="619.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="37.0">
+      <TableView fx:id="productTab" layoutX="20.0" layoutY="87.0" prefHeight="440.0" prefWidth="1281.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="10.0">
         <columns>
-          <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="colNom" prefWidth="75.0" text="Nom" />
-            <TableColumn fx:id="colPrixAchat" prefWidth="77.0" text="Prix d'achat" />
-            <TableColumn fx:id="colPrixVente" prefWidth="93.0" text="Prix de vente" />
-            <TableColumn fx:id="colCat" prefWidth="93.0" text="Catégorie" />
-            <TableColumn fx:id="colFournisseur" prefWidth="88.0" text="Fournisseur" />
-            <TableColumn fx:id="colQte" prefWidth="117.0" text="Quantité" />
+          <TableColumn fx:id="colId" prefWidth="104.0" text="ID" />
+          <TableColumn fx:id="colNom" prefWidth="504.0" text="Nom" />
+            <TableColumn fx:id="colPrixAchat" prefWidth="106.0" text="Prix d'achat" />
+            <TableColumn fx:id="colPrixVente" prefWidth="112.0" text="Prix de vente" />
+            <TableColumn fx:id="colCat" prefWidth="112.0" text="Catégorie" />
+            <TableColumn fx:id="colFournisseur" prefWidth="129.0" text="Fournisseur" />
+            <TableColumn fx:id="colQte" prefWidth="92.0" text="Quantité" />
+            <TableColumn fx:id="colRemise" prefWidth="121.0" text="Remise" />
         </columns>
       </TableView>
-      <HBox layoutX="35.0" layoutY="468.0" prefHeight="52.0" prefWidth="686.0" spacing="20.0">
+      <HBox layoutX="374.0" layoutY="548.0" prefHeight="52.0" prefWidth="670.0" spacing="20.0" AnchorPane.leftAnchor="374.0" AnchorPane.rightAnchor="208.0">
          <children>
-            <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#Ajouter" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Ajouter">
+            <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#Ajouter" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #21000e; -fx-text-fill: #fff;" text="Ajouter">
                <font>
                   <Font name="Tahoma Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnModifier" mnemonicParsing="false" onAction="#modifier" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Modifier">
+            <Button fx:id="btnModifier" mnemonicParsing="false" onAction="#modifier" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #21000e; -fx-text-fill: #fff;" text="Modifier">
                <font>
                   <Font name="Tahoma Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnSupp" mnemonicParsing="false" onAction="#delete" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Supprimer">
+            <Button fx:id="btnSupp" mnemonicParsing="false" onAction="#delete" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #21000e; -fx-text-fill: #fff;" text="Supprimer">
                <font>
                   <Font name="Tahoma Bold" size="14.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#afficherProducts" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Consulter">
+            <Button mnemonicParsing="false" onAction="#afficherProducts" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #21000e; -fx-text-fill: #fff;" text="Consulter">
                <font>
                   <Font name="Tahoma Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="310.0" layoutY="10.0" mnemonicParsing="false" onAction="#chercher" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Chercher">
-               <font>
-                  <Font name="Tahoma Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button layoutX="490.0" layoutY="20.0" mnemonicParsing="false" onAction="#remise" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #b8860b; -fx-background-radius: 10;" text="Remise">
+            <Button layoutX="310.0" layoutY="10.0" mnemonicParsing="false" onAction="#chercher" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #21000e; -fx-text-fill: #fff;" text="Chercher">
                <font>
                   <Font name="Tahoma Bold" size="14.0" />
                </font>
